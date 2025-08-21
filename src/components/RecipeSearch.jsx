@@ -7,11 +7,15 @@ const RecipeSearch = () => {
     const [loading, setLoading] = useState(false); // API通信中の状態を管理
     const [error, setError] = useState(null); // エラーメッセージを管理
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const recipesPerPage = 10;
+
     const searchRecipes = async () => {
         if (!query) return;
 
         setLoading(true);
         setError(null);
+        setCurrentPage(1);
 
         try {
             const response = await axios.get(
@@ -27,6 +31,12 @@ const RecipeSearch = () => {
             setLoading(false);
         }
     };
+
+    const indexOfLastRecipes = currentPage * recipesPerPage;
+    const indexOfFirstRecipes = indexOfLastRecipes - recipesPerPage;
+    const currentRecipes = recipes.slice(indexOfFirstRecipes, indexOfLastRecipes)
+
+    const totalPages = Math.ceil(recipes.length / recipesPerPage);
 
     return (
         <div className="recipe-search-container">
@@ -46,7 +56,7 @@ const RecipeSearch = () => {
 
             <div className="recipe-list">
                 {recipes.length > 0 ? (
-                    recipes.map((recipe) => (
+                    currentRecipes.map((recipe) => (
                         <div key={recipe.idMeal} className="recipe-card">
                             <img src={recipe.strMealThumb} alt={recipe.strMeal} />
                             <h3>{recipe.strMeal}</h3>
@@ -60,8 +70,21 @@ const RecipeSearch = () => {
                     !loading && <p>レシピが見つかりませんでした。</p>
                 )}
             </div>
+
+            {totalPages > 1 && (
+                <div className='pagenation'>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => setCurrentPage(index + 1)}
+                            className={currentPage === index + 1 ? "active" : ""}>
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+            )}
         </div>
-    );
+    )
 };
 
 export default RecipeSearch;

@@ -1,6 +1,6 @@
 import React from 'react';
-import RecipeSearch from './components/RecipeSearch';
-import './App.css'; // 必要に応じてCSSファイルを作成
+import RecipeSearch from './components/RecipeSearch.jsx';
+import './App.css'; 
 
 function App() {
   return (
