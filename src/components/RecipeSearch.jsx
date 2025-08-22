@@ -44,7 +44,7 @@ const RecipeSearch = () => {
             <div className="search-form">
                 <input
                     type="text"
-                    placeholder="料理名や食材を入力..."
+                    placeholder="料理名や食材を英語で入力..."
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                 />
