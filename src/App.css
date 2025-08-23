@@ -78,3 +78,15 @@ body {
   color: white;
   border-color: #007bff;
 }
+
+/* レシピカードのリンクスタイル */
+.recipe-card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.recipe-card-link:hover .recipe-card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
